@@ -30,25 +30,46 @@ string RandomWord() {
 	return wordList[randomIndex];
 }
 
+void WinFunc()
+{
+	cout << "You Win!" << endl;
+	system("pause");
+}
+
 void checkWord(vector<bool>& checkBox, string inputAns, string result) {
 
 	int countCorrectWord = 0;
-	//kiểm tra số từ đúng
+
+	//kiểm tra số kí tự đúng
 	for (int i = 0; i < 5; i++) {
 		if (inputAns[i] == result[i]) {
 			checkBox[i] = true;
 			countCorrectWord++;
 		}
 	}
+
 }
 
 void SpoilAns(vector<bool> checkBox, string& spoilAns, string result) {
-	for (int i = 0; i < 5; i++) {
-        if (!checkBox[i]) {
-            spoilAns[i] = result[i];
-        }
-    }
 
+	bool checkWin = true;
+
+
+	for (int i = 0; i < 5; i++) {
+		if (checkBox[i]) {
+			spoilAns[i] = result[i];
+		}
+		else
+		{
+			checkWin = false;
+		}
+	}
+
+	if (checkWin) {
+		WinFunc();
+	}
+
+	cout << "correct: " << spoilAns << endl;
 }
 
 void main() {
@@ -58,14 +79,12 @@ void main() {
 	string result = RandomWord();
 	string inputAns;
 
-	cout << result << endl;
+	cout << "result: " << result << endl;
 	//Số lần thử
 	for (int i = 0; i < 5; i++) {
+		cout << "Try " << i + 1 << " input: ";
 		cin >> inputAns;
 		checkWord(checkBox, inputAns, result);
-
-
+		SpoilAns(checkBox, spoilAns, result);
 	}
-
-
 }
