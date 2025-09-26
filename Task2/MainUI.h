@@ -50,6 +50,9 @@ namespace Task2 {
 	private: System::Windows::Forms::Button^ checkBtn1;
 	private: System::Windows::Forms::Label^ spoilAns1;
 	private: System::Windows::Forms::Label^ Text2;
+	private: System::Windows::Forms::Label^ descriptionLabel1;
+	private: System::Windows::Forms::Label^ trieslabel1;
+
 	private: System::Windows::Forms::Label^ Text1;
 
 
@@ -67,13 +70,17 @@ namespace Task2 {
 			   this->Text1 = (gcnew System::Windows::Forms::Label());
 			   this->spoilAns1 = (gcnew System::Windows::Forms::Label());
 			   this->Text2 = (gcnew System::Windows::Forms::Label());
+			   this->descriptionLabel1 = (gcnew System::Windows::Forms::Label());
+			   this->trieslabel1 = (gcnew System::Windows::Forms::Label());
 			   this->SuspendLayout();
 			   // 
 			   // inputBox1
 			   // 
-			   this->inputBox1->Location = System::Drawing::Point(12, 165);
+			   this->inputBox1->Location = System::Drawing::Point(16, 205);
+			   this->inputBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->inputBox1->MaxLength = 5;
 			   this->inputBox1->Name = L"inputBox1";
-			   this->inputBox1->Size = System::Drawing::Size(100, 20);
+			   this->inputBox1->Size = System::Drawing::Size(132, 22);
 			   this->inputBox1->TabIndex = 0;
 			   // 
 			   // checkBtn1
@@ -81,9 +88,10 @@ namespace Task2 {
 			   this->checkBtn1->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			   this->checkBtn1->Cursor = System::Windows::Forms::Cursors::Hand;
 			   this->checkBtn1->ForeColor = System::Drawing::Color::SpringGreen;
-			   this->checkBtn1->Location = System::Drawing::Point(120, 165);
+			   this->checkBtn1->Location = System::Drawing::Point(160, 205);
+			   this->checkBtn1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			   this->checkBtn1->Name = L"checkBtn1";
-			   this->checkBtn1->Size = System::Drawing::Size(20, 20);
+			   this->checkBtn1->Size = System::Drawing::Size(27, 25);
 			   this->checkBtn1->TabIndex = 1;
 			   this->checkBtn1->UseVisualStyleBackColor = false;
 			   this->checkBtn1->Click += gcnew System::EventHandler(this, &MainUI::checkBtn1_Click);
@@ -91,9 +99,12 @@ namespace Task2 {
 			   // Text1
 			   // 
 			   this->Text1->AutoSize = true;
-			   this->Text1->Location = System::Drawing::Point(12, 150);
+			   this->Text1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->Text1->Location = System::Drawing::Point(16, 180);
+			   this->Text1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->Text1->Name = L"Text1";
-			   this->Text1->Size = System::Drawing::Size(94, 13);
+			   this->Text1->Size = System::Drawing::Size(146, 20);
 			   this->Text1->TabIndex = 2;
 			   this->Text1->Text = L"Input your answer:";
 			   // 
@@ -102,31 +113,61 @@ namespace Task2 {
 			   this->spoilAns1->AutoSize = true;
 			   this->spoilAns1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				   static_cast<System::Byte>(0)));
-			   this->spoilAns1->Location = System::Drawing::Point(13, 225);
+			   this->spoilAns1->Location = System::Drawing::Point(17, 277);
+			   this->spoilAns1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->spoilAns1->Name = L"spoilAns1";
-			   this->spoilAns1->Size = System::Drawing::Size(63, 29);
+			   this->spoilAns1->Size = System::Drawing::Size(75, 36);
 			   this->spoilAns1->TabIndex = 3;
 			   this->spoilAns1->Text = L"*****";
 			   // 
 			   // Text2
 			   // 
 			   this->Text2->AutoSize = true;
-			   this->Text2->Location = System::Drawing::Point(13, 200);
+			   this->Text2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->Text2->Location = System::Drawing::Point(17, 246);
+			   this->Text2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			   this->Text2->Name = L"Text2";
-			   this->Text2->Size = System::Drawing::Size(97, 13);
+			   this->Text2->Size = System::Drawing::Size(155, 20);
 			   this->Text2->TabIndex = 4;
 			   this->Text2->Text = L"Correct characters:";
 			   // 
+			   // descriptionLabel1
+			   // 
+			   this->descriptionLabel1->AutoSize = true;
+			   this->descriptionLabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->descriptionLabel1->Location = System::Drawing::Point(13, 13);
+			   this->descriptionLabel1->Name = L"descriptionLabel1";
+			   this->descriptionLabel1->Size = System::Drawing::Size(166, 25);
+			   this->descriptionLabel1->TabIndex = 5;
+			   this->descriptionLabel1->Text = L"Description object";
+			   // 
+			   // trieslabel1
+			   // 
+			   this->trieslabel1->AutoSize = true;
+			   this->trieslabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->trieslabel1->Location = System::Drawing::Point(200, 205);
+			   this->trieslabel1->Name = L"trieslabel1";
+			   this->trieslabel1->Size = System::Drawing::Size(94, 20);
+			   this->trieslabel1->TabIndex = 6;
+			   this->trieslabel1->Text = L"Tries left: 5";
+			   this->trieslabel1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			   // 
 			   // MainUI
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(384, 441);
+			   this->ClientSize = System::Drawing::Size(512, 543);
+			   this->Controls->Add(this->trieslabel1);
+			   this->Controls->Add(this->descriptionLabel1);
 			   this->Controls->Add(this->Text2);
 			   this->Controls->Add(this->spoilAns1);
 			   this->Controls->Add(this->Text1);
 			   this->Controls->Add(this->checkBtn1);
 			   this->Controls->Add(this->inputBox1);
+			   this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			   this->Name = L"MainUI";
 			   this->Text = L"MainUI";
 			   this->ResumeLayout(false);
