@@ -1,90 +1,69 @@
-﻿#include <iostream>
+﻿#pragma once
 #include <string>
 #include <vector>
-#include  <random>
+#include <random>
+#include <msclr/marshal_cppstd.h>   
 
 using namespace System;
+using namespace System::Windows::Forms;
+using namespace System::Drawing;
 using namespace std;
 
-string RandomWord() {
-	// Tạo engine và seed
-	random_device rd;
-	mt19937 gen(rd()); // Mersenne Twister engine
-
-	// Tạo phân phối số nguyên từ 1 đến 100
-
-	// Sẵn danh sách từ 5 ký tự (không dấu)
-	vector<string> wordList = {
-		"apple","grape","mango","peach","melon",
-		"berry","lemon","olive","robot","tiger",
-		"zebra","eagle","chair","table","radio",
-		"light","sound","water","earth","flame",
-		"couch","piano","shark","cocoa","chili"
-	};
-
-	int wordListLength = wordList.size() - 1;
-
-	uniform_int_distribution<int> dist(0, wordListLength);
-	int randomIndex = dist(gen);
-
-	return wordList[randomIndex];
-}
-
-void WinFunc()
+public ref class MainUI : public Form
 {
-	cout << "You Win!" << endl;
-	system("pause");
-}
-
-void checkWord(vector<bool>& checkBox, string inputAns, string result) {
-
-	int countCorrectWord = 0;
-
-	//kiểm tra số kí tự đúng
-	for (int i = 0; i < 5; i++) {
-		if (inputAns[i] == result[i]) {
-			checkBox[i] = true;
-			countCorrectWord++;
-		}
-	}
-
-}
-
-void SpoilAns(vector<bool> checkBox, string& spoilAns, string result) {
-
-	bool checkWin = true;
+private:
+    TextBox^ inputBox;
+    Button^ checkButton;
+    Label^ resultLabel;
+    Label^ triesLabel;
 
 
-	for (int i = 0; i < 5; i++) {
-		if (checkBox[i]) {
-			spoilAns[i] = result[i];
-		}
-		else
-		{
-			checkWin = false;
-		}
-	}
+public:
+    MainUI(void)
+    {
+        InitializeComponent();
+    }
 
-	if (checkWin) {
-		WinFunc();
-	}
+protected:
+    ~MainUI()
+    {
+        if (components) delete components;
+    }
 
-	cout << "correct: " << spoilAns << endl;
-}
+private:
+    System::ComponentModel::Container^ components;
 
-void main() {
-	vector<bool> checkBox(5, false);
-	string spoilAns = "*****";
+    void InitializeComponent(void)
+    {
+        this->Text = L"Word Guess Game";
+        this->ClientSize = System::Drawing::Size(400, 200);
 
-	string result = RandomWord();
-	string inputAns;
+        inputBox = gcnew TextBox();
+        inputBox->Location = Point(30, 30);
+        inputBox->Width = 200;
 
-	cout << "result: " << result << endl;
-	//Số lần thử
-	for (int i = 0; i < 5; i++) {
-		cout << "Try " << i + 1 << " input: ";
-		cin >> inputAns;
-		checkWord(checkBox, inputAns, result);
-		SpoilAns(checkBox, spoilAns, result);
-	}
-}
+        checkButton = gcnew Button();
+        checkButton->Text = L"Check";
+        checkButton->Location = Point(250, 30);
+		checkButton->Click += gcnew EventHandler(this, &MainUI::OnCheckButtonClick);
+
+
+        resultLabel = gcnew Label();
+        resultLabel->Text = L"*****";
+        resultLabel->Font = gcnew Drawing::Font("Consolas", 20);
+        resultLabel->Location = Point(30, 80);
+        resultLabel->AutoSize = true;
+
+        triesLabel = gcnew Label();
+        triesLabel->Text = L"Tries left: 5";
+        triesLabel->Location = Point(30, 130);
+        triesLabel->AutoSize = true;
+
+        this->Controls->Add(inputBox);
+        this->Controls->Add(checkButton);
+        this->Controls->Add(resultLabel);
+        this->Controls->Add(triesLabel);
+    }
+
+    
+};

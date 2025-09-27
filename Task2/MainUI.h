@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "MainCore.h"
 #include <msclr/marshal_cppstd.h>
+#include <string>
 
 namespace Task2 {
 
@@ -25,7 +26,7 @@ namespace Task2 {
 			InitializeComponent();
 			_gameLogic = new GameLogic();
 
-
+			descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
 		}
 
 	protected:
@@ -52,6 +53,10 @@ namespace Task2 {
 	private: System::Windows::Forms::Label^ Text2;
 	private: System::Windows::Forms::Label^ descriptionLabel1;
 	private: System::Windows::Forms::Label^ trieslabel1;
+	private: System::Windows::Forms::ListBox^ historyListBox1;
+	private: System::Windows::Forms::Button^ resetBtn1;
+	private: System::Windows::Forms::Label^ textBox2;
+
 
 	private: System::Windows::Forms::Label^ Text1;
 
@@ -65,6 +70,7 @@ namespace Task2 {
 		   /// </summary>
 		   void InitializeComponent(void)
 		   {
+			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainUI::typeid));
 			   this->inputBox1 = (gcnew System::Windows::Forms::TextBox());
 			   this->checkBtn1 = (gcnew System::Windows::Forms::Button());
 			   this->Text1 = (gcnew System::Windows::Forms::Label());
@@ -72,94 +78,80 @@ namespace Task2 {
 			   this->Text2 = (gcnew System::Windows::Forms::Label());
 			   this->descriptionLabel1 = (gcnew System::Windows::Forms::Label());
 			   this->trieslabel1 = (gcnew System::Windows::Forms::Label());
+			   this->historyListBox1 = (gcnew System::Windows::Forms::ListBox());
+			   this->resetBtn1 = (gcnew System::Windows::Forms::Button());
+			   this->textBox2 = (gcnew System::Windows::Forms::Label());
 			   this->SuspendLayout();
 			   // 
 			   // inputBox1
 			   // 
-			   this->inputBox1->Location = System::Drawing::Point(16, 205);
-			   this->inputBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
-			   this->inputBox1->MaxLength = 5;
+			   resources->ApplyResources(this->inputBox1, L"inputBox1");
 			   this->inputBox1->Name = L"inputBox1";
-			   this->inputBox1->Size = System::Drawing::Size(132, 22);
-			   this->inputBox1->TabIndex = 0;
+			   this->inputBox1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MainUI::inputBox1_EnterDown);
 			   // 
 			   // checkBtn1
 			   // 
-			   this->checkBtn1->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			   this->checkBtn1->BackColor = System::Drawing::SystemColors::MenuHighlight;
+			   resources->ApplyResources(this->checkBtn1, L"checkBtn1");
 			   this->checkBtn1->Cursor = System::Windows::Forms::Cursors::Hand;
-			   this->checkBtn1->ForeColor = System::Drawing::Color::SpringGreen;
-			   this->checkBtn1->Location = System::Drawing::Point(160, 205);
-			   this->checkBtn1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->checkBtn1->ForeColor = System::Drawing::Color::LightGreen;
 			   this->checkBtn1->Name = L"checkBtn1";
-			   this->checkBtn1->Size = System::Drawing::Size(27, 25);
-			   this->checkBtn1->TabIndex = 1;
 			   this->checkBtn1->UseVisualStyleBackColor = false;
 			   this->checkBtn1->Click += gcnew System::EventHandler(this, &MainUI::checkBtn1_Click);
 			   // 
 			   // Text1
 			   // 
-			   this->Text1->AutoSize = true;
-			   this->Text1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->Text1->Location = System::Drawing::Point(16, 180);
-			   this->Text1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			   resources->ApplyResources(this->Text1, L"Text1");
 			   this->Text1->Name = L"Text1";
-			   this->Text1->Size = System::Drawing::Size(146, 20);
-			   this->Text1->TabIndex = 2;
-			   this->Text1->Text = L"Input your answer:";
 			   // 
 			   // spoilAns1
 			   // 
-			   this->spoilAns1->AutoSize = true;
-			   this->spoilAns1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 18, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->spoilAns1->Location = System::Drawing::Point(17, 277);
-			   this->spoilAns1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			   resources->ApplyResources(this->spoilAns1, L"spoilAns1");
 			   this->spoilAns1->Name = L"spoilAns1";
-			   this->spoilAns1->Size = System::Drawing::Size(75, 36);
-			   this->spoilAns1->TabIndex = 3;
-			   this->spoilAns1->Text = L"*****";
 			   // 
 			   // Text2
 			   // 
-			   this->Text2->AutoSize = true;
-			   this->Text2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->Text2->Location = System::Drawing::Point(17, 246);
-			   this->Text2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			   resources->ApplyResources(this->Text2, L"Text2");
 			   this->Text2->Name = L"Text2";
-			   this->Text2->Size = System::Drawing::Size(155, 20);
-			   this->Text2->TabIndex = 4;
-			   this->Text2->Text = L"Correct characters:";
 			   // 
 			   // descriptionLabel1
 			   // 
-			   this->descriptionLabel1->AutoSize = true;
-			   this->descriptionLabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->descriptionLabel1->Location = System::Drawing::Point(13, 13);
+			   resources->ApplyResources(this->descriptionLabel1, L"descriptionLabel1");
 			   this->descriptionLabel1->Name = L"descriptionLabel1";
-			   this->descriptionLabel1->Size = System::Drawing::Size(166, 25);
-			   this->descriptionLabel1->TabIndex = 5;
-			   this->descriptionLabel1->Text = L"Description object";
 			   // 
 			   // trieslabel1
 			   // 
-			   this->trieslabel1->AutoSize = true;
-			   this->trieslabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				   static_cast<System::Byte>(0)));
-			   this->trieslabel1->Location = System::Drawing::Point(200, 205);
+			   resources->ApplyResources(this->trieslabel1, L"trieslabel1");
 			   this->trieslabel1->Name = L"trieslabel1";
-			   this->trieslabel1->Size = System::Drawing::Size(94, 20);
-			   this->trieslabel1->TabIndex = 6;
-			   this->trieslabel1->Text = L"Tries left: 5";
-			   this->trieslabel1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			   // 
+			   // historyListBox1
+			   // 
+			   resources->ApplyResources(this->historyListBox1, L"historyListBox1");
+			   this->historyListBox1->FormattingEnabled = true;
+			   this->historyListBox1->Name = L"historyListBox1";
+			   this->historyListBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainUI::historyListBox1_SelectedIndexChanged);
+			   // 
+			   // resetBtn1
+			   // 
+			   this->resetBtn1->BackColor = System::Drawing::Color::MediumSeaGreen;
+			   resources->ApplyResources(this->resetBtn1, L"resetBtn1");
+			   this->resetBtn1->Name = L"resetBtn1";
+			   this->resetBtn1->UseVisualStyleBackColor = false;
+			   this->resetBtn1->Click += gcnew System::EventHandler(this, &MainUI::resetBtn1_Click);
+			   // 
+			   // textBox2
+			   // 
+			   resources->ApplyResources(this->textBox2, L"textBox2");
+			   this->textBox2->Name = L"textBox2";
+			   this->textBox2->Click += gcnew System::EventHandler(this, &MainUI::textBox2_Click);
 			   // 
 			   // MainUI
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			   resources->ApplyResources(this, L"$this");
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(512, 543);
+			   this->Controls->Add(this->textBox2);
+			   this->Controls->Add(this->resetBtn1);
+			   this->Controls->Add(this->historyListBox1);
 			   this->Controls->Add(this->trieslabel1);
 			   this->Controls->Add(this->descriptionLabel1);
 			   this->Controls->Add(this->Text2);
@@ -167,45 +159,79 @@ namespace Task2 {
 			   this->Controls->Add(this->Text1);
 			   this->Controls->Add(this->checkBtn1);
 			   this->Controls->Add(this->inputBox1);
-			   this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->MaximizeBox = false;
 			   this->Name = L"MainUI";
-			   this->Text = L"MainUI";
 			   this->ResumeLayout(false);
 			   this->PerformLayout();
 
 		   }
 #pragma endregion
 
-	protected:
-		virtual bool ProcessCmdKey(Message% msg, Keys keyData) override {
-			if (keyData == Keys::Enter || keyData == Keys::Escape) {
-				// Chặn tiếng ding toàn cục
-				return true; // báo là đã xử lý phím này
-			}
-			return Form::ProcessCmdKey(msg, keyData);
-		}
 
+		   void InputHandle() {
+			   String^ input = inputBox1->Text->ToLower();
+			   std::string guess = msclr::interop::marshal_as<std::string>(input);
 
+			   bool win = false, lose = false;
+			   std::string spoil = _gameLogic->ProcessGuess(guess, win, lose);
 
-		// ====== EVENT HANDLERS ======
+			   spoilAns1->Text = gcnew String(spoil.c_str());
+
+			   int triesLeft = _gameLogic->GetTriesLeft();
+			   trieslabel1->Text = "Tries left: " + triesLeft.ToString();
+			   inputBox1->Clear();
+			   inputBox1->Focus();
+
+			   // 🔹 Cập nhật ListBox lịch sử đoán
+			   historyListBox1->Items->Clear();
+			   for (auto& g : _gameLogic->GetGuessHistory()) {
+				   historyListBox1->Items->Add(gcnew System::String(g.c_str()));
+			   }
+
+			   if (win) {
+				   MessageBox::Show("You Win!");
+				   this->Close();
+			   }
+			   else if (lose) {
+				   MessageBox::Show("You Lose! Answer: " + gcnew String(_gameLogic->GetAnswer().c_str()));
+				   this->Close();
+			   }
+		   }
+
+		   void ResetGameHandle() {
+			   _gameLogic->ResetGame();
+
+			   inputBox1->MaxLength = _gameLogic->GetAnswer().length();
+
+			   descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
+			   spoilAns1->Text = gcnew String(_gameLogic->spoilAns.c_str());
+			   trieslabel1->Text = "Tries left: " + _gameLogic->GetTriesLeft().ToString();
+			   historyListBox1->Items->Clear();
+			   inputBox1->Clear();
+			   inputBox1->Focus();
+		   }
+
+		   // ====== EVENT HANDLERS ======
 
 	private: System::Void checkBtn1_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ input = inputBox1->Text;
-		std::string guess = msclr::interop::marshal_as<std::string>(input);
+		InputHandle();
+	}
+	private: System::Void inputBox1_EnterDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		if (e->KeyCode == Keys::Enter) {
+			InputHandle();
 
-		bool win = false, lose = false;
-		std::string spoil = _gameLogic->ProcessGuess(guess, win, lose);
-
-		spoilAns1->Text = gcnew String(spoil.c_str());
-
-		if (win) {
-			MessageBox::Show("You Win!");
-			this->Close();
-		}
-		else if (lose) {
-			MessageBox::Show("You Lose! Answer: " + gcnew String(_gameLogic->GetAnswer().c_str()));
-			this->Close();
+			e->Handled = true;
+			e->SuppressKeyPress = true;
 		}
 	}
-	};
+
+	private: System::Void resetBtn1_Click(System::Object^ sender, System::EventArgs^ e) {
+		ResetGameHandle();
+	}
+private: System::Void textBox2_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+
+private: System::Void historyListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+};
 }

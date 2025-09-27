@@ -138,6 +138,9 @@
     <EmbeddedResource Include="MainUI.resx">
       <DependentUpon>MainUI.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainUI.vi.resx">
+      <DependentUpon>MainUI.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
