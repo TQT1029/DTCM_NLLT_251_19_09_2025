@@ -41,12 +41,14 @@ namespace Task2 {
 			}
 			if (_gameLogic) delete _gameLogic;
 		}
+	private: System::ComponentModel::IContainer^ components;
+	protected:
 
 	protected:
 
 	private:
 
-		System::ComponentModel::Container^ components;
+
 	private: System::Windows::Forms::TextBox^ inputBox1;
 	private: System::Windows::Forms::Button^ checkBtn1;
 	private: System::Windows::Forms::Label^ spoilAns1;
@@ -56,6 +58,8 @@ namespace Task2 {
 	private: System::Windows::Forms::ListBox^ historyListBox1;
 	private: System::Windows::Forms::Button^ resetBtn1;
 	private: System::Windows::Forms::Label^ textBox2;
+	private: System::Windows::Forms::ImageList^ imageList1;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
 
 
 	private: System::Windows::Forms::Label^ Text1;
@@ -70,6 +74,7 @@ namespace Task2 {
 		   /// </summary>
 		   void InitializeComponent(void)
 		   {
+			   this->components = (gcnew System::ComponentModel::Container());
 			   System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainUI::typeid));
 			   this->inputBox1 = (gcnew System::Windows::Forms::TextBox());
 			   this->checkBtn1 = (gcnew System::Windows::Forms::Button());
@@ -81,6 +86,9 @@ namespace Task2 {
 			   this->historyListBox1 = (gcnew System::Windows::Forms::ListBox());
 			   this->resetBtn1 = (gcnew System::Windows::Forms::Button());
 			   this->textBox2 = (gcnew System::Windows::Forms::Label());
+			   this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
+			   this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			   this->SuspendLayout();
 			   // 
 			   // inputBox1
@@ -145,10 +153,23 @@ namespace Task2 {
 			   this->textBox2->Name = L"textBox2";
 			   this->textBox2->Click += gcnew System::EventHandler(this, &MainUI::textBox2_Click);
 			   // 
+			   // imageList1
+			   // 
+			   this->imageList1->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
+			   resources->ApplyResources(this->imageList1, L"imageList1");
+			   this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
+			   // 
+			   // pictureBox1
+			   // 
+			   resources->ApplyResources(this->pictureBox1, L"pictureBox1");
+			   this->pictureBox1->Name = L"pictureBox1";
+			   this->pictureBox1->TabStop = false;
+			   // 
 			   // MainUI
 			   // 
 			   resources->ApplyResources(this, L"$this");
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			   this->Controls->Add(this->pictureBox1);
 			   this->Controls->Add(this->textBox2);
 			   this->Controls->Add(this->resetBtn1);
 			   this->Controls->Add(this->historyListBox1);
@@ -161,11 +182,26 @@ namespace Task2 {
 			   this->Controls->Add(this->inputBox1);
 			   this->MaximizeBox = false;
 			   this->Name = L"MainUI";
+			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			   this->ResumeLayout(false);
 			   this->PerformLayout();
 
 		   }
 #pragma endregion
+
+
+		   void ResetGameHandle() {
+			   _gameLogic->ResetGame();
+
+			   inputBox1->MaxLength = _gameLogic->GetAnswer().length();
+
+			   descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
+			   spoilAns1->Text = gcnew String(_gameLogic->spoilAns.c_str());
+			   trieslabel1->Text = "Tries left: " + _gameLogic->GetTriesLeft().ToString();
+			   historyListBox1->Items->Clear();
+			   inputBox1->Clear();
+			   inputBox1->Focus();
+		   }
 
 
 		   void InputHandle() {
@@ -190,26 +226,14 @@ namespace Task2 {
 
 			   if (win) {
 				   MessageBox::Show("You Win!");
-				   this->Close();
+				   ResetGameHandle();
 			   }
 			   else if (lose) {
 				   MessageBox::Show("You Lose! Answer: " + gcnew String(_gameLogic->GetAnswer().c_str()));
-				   this->Close();
+				   ResetGameHandle();
 			   }
 		   }
 
-		   void ResetGameHandle() {
-			   _gameLogic->ResetGame();
-
-			   inputBox1->MaxLength = _gameLogic->GetAnswer().length();
-
-			   descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
-			   spoilAns1->Text = gcnew String(_gameLogic->spoilAns.c_str());
-			   trieslabel1->Text = "Tries left: " + _gameLogic->GetTriesLeft().ToString();
-			   historyListBox1->Items->Clear();
-			   inputBox1->Clear();
-			   inputBox1->Focus();
-		   }
 
 		   // ====== EVENT HANDLERS ======
 
@@ -228,10 +252,10 @@ namespace Task2 {
 	private: System::Void resetBtn1_Click(System::Object^ sender, System::EventArgs^ e) {
 		ResetGameHandle();
 	}
-private: System::Void textBox2_Click(System::Object^ sender, System::EventArgs^ e) {
-}
+	private: System::Void textBox2_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
 
-private: System::Void historyListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-}
-};
+	private: System::Void historyListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+	}
+	};
 }
