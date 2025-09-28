@@ -27,6 +27,10 @@ namespace Task2 {
 			_gameLogic = new GameLogic();
 
 			descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
+			
+			spoilAns1->Text = gcnew System::String(_gameLogic->spoilAns.c_str());
+			inputBox1->MaxLength = (int)_gameLogic->spoilAns.length();
+			
 			pictureBox1->Image = imageList1->Images[0];
 		}
 
@@ -205,6 +209,8 @@ namespace Task2 {
 			   historyListBox1->Items->Clear();
 			   inputBox1->Clear();
 			   inputBox1->Focus();
+
+			   pictureBox1->Image = imageList1->Images[0];
 		   }
 
 
