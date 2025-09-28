@@ -27,4 +27,24 @@
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\1.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\2.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\3.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\4.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\5.png">
+      <Filter>Source Files</Filter>
+    </Image>
+    <Image Include="C:\Users\PC\OneDrive\Document\Unity\Sprites\Game Owner\6.png">
+      <Filter>Source Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

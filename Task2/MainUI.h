@@ -27,6 +27,7 @@ namespace Task2 {
 			_gameLogic = new GameLogic();
 
 			descriptionLabel1->Text = gcnew System::String(_gameLogic->GetDescription().c_str());
+			pictureBox1->Image = imageList1->Images[0];
 		}
 
 	protected:
@@ -137,7 +138,6 @@ namespace Task2 {
 			   resources->ApplyResources(this->historyListBox1, L"historyListBox1");
 			   this->historyListBox1->FormattingEnabled = true;
 			   this->historyListBox1->Name = L"historyListBox1";
-			   this->historyListBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainUI::historyListBox1_SelectedIndexChanged);
 			   // 
 			   // resetBtn1
 			   // 
@@ -151,13 +151,17 @@ namespace Task2 {
 			   // 
 			   resources->ApplyResources(this->textBox2, L"textBox2");
 			   this->textBox2->Name = L"textBox2";
-			   this->textBox2->Click += gcnew System::EventHandler(this, &MainUI::textBox2_Click);
 			   // 
 			   // imageList1
 			   // 
-			   this->imageList1->ColorDepth = System::Windows::Forms::ColorDepth::Depth8Bit;
-			   resources->ApplyResources(this->imageList1, L"imageList1");
+			   this->imageList1->ImageStream = (cli::safe_cast<System::Windows::Forms::ImageListStreamer^>(resources->GetObject(L"imageList1.ImageStream")));
 			   this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
+			   this->imageList1->Images->SetKeyName(0, L"1.png");
+			   this->imageList1->Images->SetKeyName(1, L"2.png");
+			   this->imageList1->Images->SetKeyName(2, L"3.png");
+			   this->imageList1->Images->SetKeyName(3, L"4.png");
+			   this->imageList1->Images->SetKeyName(4, L"5.png");
+			   this->imageList1->Images->SetKeyName(5, L"6.png");
 			   // 
 			   // pictureBox1
 			   // 
@@ -220,6 +224,8 @@ namespace Task2 {
 
 			   // 🔹 Cập nhật ListBox lịch sử đoán
 			   historyListBox1->Items->Clear();
+
+			   pictureBox1->Image = imageList1->Images[5 - triesLeft];
 			   for (auto& g : _gameLogic->GetGuessHistory()) {
 				   historyListBox1->Items->Add(gcnew System::String(g.c_str()));
 			   }
@@ -251,11 +257,6 @@ namespace Task2 {
 
 	private: System::Void resetBtn1_Click(System::Object^ sender, System::EventArgs^ e) {
 		ResetGameHandle();
-	}
-	private: System::Void textBox2_Click(System::Object^ sender, System::EventArgs^ e) {
-	}
-
-	private: System::Void historyListBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	};
 }
