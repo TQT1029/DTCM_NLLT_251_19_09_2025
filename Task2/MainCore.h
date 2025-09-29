@@ -70,7 +70,14 @@ public:
 			{"water",     L"Dòng chảy vô hình của sự sống, không màu không mùi nhưng nuôi dưỡng mọi sinh vật. (5 chữ)"},
 			{"xylophone", L"Dãy thanh gỗ nhiều màu, mỗi cú gõ vang lên như tiếng cười trong trẻo. (9 chữ)"},
 			{"yacht",     L"Con thuyền sang trọng, lướt trên sóng như một cung điện nổi. (5 chữ)"},
-			{"zebra",     L"Con ngựa khoác áo sọc đen trắng, như thể vừa bước ra từ một bàn cờ. (5 chữ)"}
+			{"zebra",     L"Con ngựa khoác áo sọc đen trắng, như thể vừa bước ra từ một bàn cờ. (5 chữ)"},
+
+			// --- từ mới thêm vào ---
+			{"compass",   L"Vật nhỏ bé nhưng luôn chỉ hướng, cứu người lạc giữa biển hay rừng sâu. (7 chữ)"},
+			{"lantern",   L"Ánh sáng di động trong đêm tối, gắn với những bước chân tìm đường xưa cũ. (7 chữ)"},
+			{"mirror",    L"Tấm bề mặt im lìm nhưng trả lại cho bạn một cái nhìn không bao giờ dối trá. (6 chữ)"},
+			{"phoenix",   L"Chim lửa trong huyền thoại, mỗi lần chết đi lại hồi sinh từ tro tàn. (7 chữ)"},
+			{"clock",     L"Kẻ vô hình đo đếm đời người, từng tiếng tích tắc vang lên mà chẳng ai ngăn nổi. (5 chữ)"}
 		};
 
 		std::uniform_int_distribution<int> dist(0, (int)wordList.size() - 1);
