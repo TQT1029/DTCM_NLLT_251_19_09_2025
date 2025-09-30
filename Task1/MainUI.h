@@ -60,7 +60,7 @@ namespace Task1 {
 	private: System::Windows::Forms::TrackBar^ CheckValue;
 	private: System::Windows::Forms::Button^ LoadBtn;
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
-	private: System::Windows::Forms::ImageList^ imageList1;
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -85,7 +85,6 @@ namespace Task1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainUI::typeid));
 			this->InputPic = (gcnew System::Windows::Forms::PictureBox());
 			this->ReverseColorCheck = (gcnew System::Windows::Forms::CheckBox());
@@ -94,7 +93,6 @@ namespace Task1 {
 			this->CheckValue = (gcnew System::Windows::Forms::TrackBar());
 			this->LoadBtn = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CheckValue))->BeginInit();
 			this->SuspendLayout();
@@ -102,9 +100,10 @@ namespace Task1 {
 			// InputPic
 			// 
 			this->InputPic->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"InputPic.Image")));
-			this->InputPic->Location = System::Drawing::Point(292, 12);
+			this->InputPic->Location = System::Drawing::Point(219, 10);
+			this->InputPic->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->InputPic->Name = L"InputPic";
-			this->InputPic->Size = System::Drawing::Size(506, 425);
+			this->InputPic->Size = System::Drawing::Size(380, 345);
 			this->InputPic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			this->InputPic->TabIndex = 0;
 			this->InputPic->TabStop = false;
@@ -112,9 +111,10 @@ namespace Task1 {
 			// ReverseColorCheck
 			// 
 			this->ReverseColorCheck->AutoSize = true;
-			this->ReverseColorCheck->Location = System::Drawing::Point(134, 390);
+			this->ReverseColorCheck->Location = System::Drawing::Point(100, 317);
+			this->ReverseColorCheck->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ReverseColorCheck->Name = L"ReverseColorCheck";
-			this->ReverseColorCheck->Size = System::Drawing::Size(116, 20);
+			this->ReverseColorCheck->Size = System::Drawing::Size(93, 17);
 			this->ReverseColorCheck->TabIndex = 1;
 			this->ReverseColorCheck->Text = L"Reverse Color";
 			this->ReverseColorCheck->UseVisualStyleBackColor = true;
@@ -122,9 +122,10 @@ namespace Task1 {
 			// 
 			// ProgressBtn
 			// 
-			this->ProgressBtn->Location = System::Drawing::Point(12, 360);
+			this->ProgressBtn->Location = System::Drawing::Point(9, 292);
+			this->ProgressBtn->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ProgressBtn->Name = L"ProgressBtn";
-			this->ProgressBtn->Size = System::Drawing::Size(116, 50);
+			this->ProgressBtn->Size = System::Drawing::Size(87, 41);
 			this->ProgressBtn->TabIndex = 2;
 			this->ProgressBtn->Text = L"Progress";
 			this->ProgressBtn->UseVisualStyleBackColor = true;
@@ -132,9 +133,10 @@ namespace Task1 {
 			// 
 			// ExampleBtn
 			// 
-			this->ExampleBtn->Location = System::Drawing::Point(135, 360);
+			this->ExampleBtn->Location = System::Drawing::Point(101, 292);
+			this->ExampleBtn->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->ExampleBtn->Name = L"ExampleBtn";
-			this->ExampleBtn->Size = System::Drawing::Size(115, 23);
+			this->ExampleBtn->Size = System::Drawing::Size(86, 19);
 			this->ExampleBtn->TabIndex = 4;
 			this->ExampleBtn->Text = L"Example";
 			this->ExampleBtn->UseVisualStyleBackColor = true;
@@ -142,19 +144,21 @@ namespace Task1 {
 			// 
 			// CheckValue
 			// 
-			this->CheckValue->Location = System::Drawing::Point(12, 298);
+			this->CheckValue->Location = System::Drawing::Point(9, 242);
+			this->CheckValue->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->CheckValue->Maximum = 255;
 			this->CheckValue->Name = L"CheckValue";
-			this->CheckValue->Size = System::Drawing::Size(238, 56);
+			this->CheckValue->Size = System::Drawing::Size(178, 45);
 			this->CheckValue->TabIndex = 5;
 			this->CheckValue->Value = 128;
 			this->CheckValue->Scroll += gcnew System::EventHandler(this, &MainUI::CheckValue_Scroll);
 			// 
 			// LoadBtn
 			// 
-			this->LoadBtn->Location = System::Drawing::Point(12, 260);
+			this->LoadBtn->Location = System::Drawing::Point(9, 211);
+			this->LoadBtn->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->LoadBtn->Name = L"LoadBtn";
-			this->LoadBtn->Size = System::Drawing::Size(98, 32);
+			this->LoadBtn->Size = System::Drawing::Size(74, 26);
 			this->LoadBtn->TabIndex = 6;
 			this->LoadBtn->Text = L"Load File";
 			this->LoadBtn->UseVisualStyleBackColor = true;
@@ -164,21 +168,18 @@ namespace Task1 {
 			// 
 			this->openFileDialog1->FileName = L"openFileImage";
 			// 
-			// imageList1
-			// 
-			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
-			// 
 			// MainUI
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(810, 449);
+			this->ClientSize = System::Drawing::Size(608, 365);
 			this->Controls->Add(this->LoadBtn);
 			this->Controls->Add(this->CheckValue);
 			this->Controls->Add(this->ExampleBtn);
 			this->Controls->Add(this->ProgressBtn);
 			this->Controls->Add(this->ReverseColorCheck);
 			this->Controls->Add(this->InputPic);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"MainUI";
 			this->Text = L"MainUI";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->EndInit();
@@ -244,7 +245,7 @@ namespace Task1 {
 	private: System::Void ExampleBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		// Load Image
-		InputPic->Image = imageList1->Images[0];
+		InputPic->Image = System::Drawing::Image::FromFile("horseImage.png");
 
 		Mat img = imread("horseImage.png", IMREAD_GRAYSCALE);
 
