@@ -60,7 +60,7 @@ namespace Task1 {
 	private: System::Windows::Forms::TrackBar^ CheckValue;
 	private: System::Windows::Forms::Button^ LoadBtn;
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
-	private: System::Windows::Forms::ImageList^ imageList1;
+
 	private: System::ComponentModel::IContainer^ components;
 
 
@@ -85,7 +85,6 @@ namespace Task1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainUI::typeid));
 			this->InputPic = (gcnew System::Windows::Forms::PictureBox());
 			this->ReverseColorCheck = (gcnew System::Windows::Forms::CheckBox());
@@ -94,7 +93,6 @@ namespace Task1 {
 			this->CheckValue = (gcnew System::Windows::Forms::TrackBar());
 			this->LoadBtn = (gcnew System::Windows::Forms::Button());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->imageList1 = (gcnew System::Windows::Forms::ImageList(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CheckValue))->BeginInit();
 			this->SuspendLayout();
@@ -163,10 +161,6 @@ namespace Task1 {
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"openFileImage";
-			// 
-			// imageList1
-			// 
-			this->imageList1->TransparentColor = System::Drawing::Color::Transparent;
 			// 
 			// MainUI
 			// 
@@ -244,7 +238,7 @@ namespace Task1 {
 	private: System::Void ExampleBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		// Load Image
-		InputPic->Image = imageList1->Images[0];
+		InputPic->Image = System::Drawing::Image::FromFile("horseImage.png");
 
 		Mat img = imread("horseImage.png", IMREAD_GRAYSCALE);
 
