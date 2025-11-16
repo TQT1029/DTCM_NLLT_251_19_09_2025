@@ -1,0 +1,55 @@
+﻿  MainUI.cpp
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(381,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(381,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EED' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1ED5' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EBF' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(380,28): warning C4101: 'ex': unreferenced local variable
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4\opencv2\core\cuda.inl.hpp(113,1): warning C4793: 'cv::cuda::GpuMat::GpuMat': function compiled as native:
+D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4\opencv2\core\cuda.inl.hpp(113,1): warning C4793: 	Found an intrinsic not supported in managed code
+D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4\opencv2\core\cuda.inl.hpp(511,1): warning C4793: 'cv::cuda::HostMem::HostMem': function compiled as native:
+D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4\opencv2\core\cuda.inl.hpp(511,1): warning C4793: 	Found an intrinsic not supported in managed code
+  MainUI.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  Task1.vcxproj -> D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\x64\Release\Task1.exe

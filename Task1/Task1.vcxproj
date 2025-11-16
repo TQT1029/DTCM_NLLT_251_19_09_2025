@@ -73,19 +73,24 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Storge\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4;D:\Storge\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_world4d.lib</AdditionalDependencies>
+      <AdditionalDependencies>opencv_world4d.lib;opencv_world4.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
-      <AdditionalLibraryDirectories>D:\Storge\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\debug\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\lib;D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\debug\lib;D:\Storge\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\debug\lib</AdditionalLibraryDirectories>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,11 +118,11 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4;D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opencv_world4.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_world4.lib;opencv_world4.lib;opencv_world4d.lib;opencv_world4.lib;opencv_world4d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\lib;D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\debug\lib;D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\lib</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>

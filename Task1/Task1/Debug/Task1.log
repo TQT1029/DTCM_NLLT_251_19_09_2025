@@ -1,0 +1,6 @@
+﻿  MainUI.cpp
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(2,10): error C1083: Cannot open include file: 'opencv2/opencv.hpp': No such file or directory
+  (compiling source file 'MainUI.cpp')
+  
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Generating Code...
