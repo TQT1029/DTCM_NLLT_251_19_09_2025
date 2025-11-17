@@ -1,50 +1,122 @@
 ﻿  MainUI.cpp
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(381,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(381,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(390,21): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u1ED9' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(46,22): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(53,22): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(53,22): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(434,21): warning C4566: character represented by universal-character-name '\u1EED' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(53,22): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(53,22): warning C4566: character represented by universal-character-name '\u1EDF' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(53,22): warning C4566: character represented by universal-character-name '\u1ED9' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(401,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1ED5' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(401,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(409,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(451,21): warning C4566: character represented by universal-character-name '\u1EBF' cannot be represented in the current code page (1252)
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(409,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
   (compiling source file 'MainUI.cpp')
   
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(380,28): warning C4101: 'ex': unreferenced local variable
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(409,21): warning C4566: character represented by universal-character-name '\u1ECD' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(454,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(454,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(454,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(454,21): warning C4566: character represented by universal-character-name '\u1EED' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u1ED5' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(469,21): warning C4566: character represented by universal-character-name '\u1EBF' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EA1' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EA5' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u0111' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EC3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EED' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u01B0' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(478,21): warning C4566: character represented by universal-character-name '\u1EDB' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(491,22): warning C4566: character represented by universal-character-name '\u01B0' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(491,22): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(494,22): warning C4566: character represented by universal-character-name '\u1ED7' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(494,22): warning C4566: character represented by universal-character-name '\u01B0' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(494,22): warning C4566: character represented by universal-character-name '\u1EA3' cannot be represented in the current code page (1252)
+  (compiling source file 'MainUI.cpp')
+  
+D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\MainUI.h(400,28): warning C4101: 'ex': unreferenced local variable
   (compiling source file 'MainUI.cpp')
   
 D:\Storage\Dev\Cpp\Libraries\vcpkg\installed\x64-windows\include\opencv4\opencv2\core\cuda.inl.hpp(113,1): warning C4793: 'cv::cuda::GpuMat::GpuMat': function compiled as native:

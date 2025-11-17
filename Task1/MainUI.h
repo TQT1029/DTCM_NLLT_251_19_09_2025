@@ -10,6 +10,7 @@ using namespace std;
 bool isReversed = false;
 int checkValue = 128;
 Mat img; // Ảnh OpenCV toàn cục (dùng để xử lý) - LUÔN LÀ ẢNH MÀU
+Mat imgProcessed; // (THÊM MỚI) Ảnh đã xử lý (dùng để lưu)
 int selectedChannel = 0; // 0: Gray, 1: Blue, 2: Green, 3: Red
 
 namespace Task1 {
@@ -29,11 +30,28 @@ namespace Task1 {
 		MainUI(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-			// (THÊM MỚI) Đặt giá trị ban đầu cho Label
+
+			// Đặt giá trị ban đầu cho Label
 			this->checkValueLabel->Text = this->CheckValue->Value.ToString();
+
+			// (THÊM MỚI) Tự động load ảnh example khi khởi động
+			string examplePath = "horseImage.png";
+
+			// 1. Hiển thị ảnh (dùng .NET)
+			try {
+				InputPic->Image = Image::FromFile(gcnew Task1::String(examplePath.c_str()));
+				InputPic->SizeMode = PictureBoxSizeMode::Zoom;
+			}
+			catch (Task1::Exception^ ex) {
+				MessageBox::Show("Không thể tải 'horseImage.png' khi khởi động!\nLỗi: " + ex->Message);
+			}
+
+			// 2. Tải ảnh (dùng OpenCV)
+			img = imread(examplePath, IMREAD_COLOR);
+
+			if (img.empty()) {
+				MessageBox::Show("OpenCV không thể đọc 'horseImage.png' khi khởi động!");
+			}
 		}
 
 	protected:
@@ -53,13 +71,15 @@ namespace Task1 {
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 	private: System::ComponentModel::IContainer^ components;
 
-		   // (THÊM MỚI) Các control để chọn kênh và hiển thị giá trị
 	private: System::Windows::Forms::GroupBox^ channelBox;
 	private: System::Windows::Forms::RadioButton^ grayRadio;
 	private: System::Windows::Forms::RadioButton^ blueRadio;
 	private: System::Windows::Forms::RadioButton^ greenRadio;
 	private: System::Windows::Forms::RadioButton^ redRadio;
 	private: System::Windows::Forms::Label^ checkValueLabel;
+		   // (THÊM MỚI) Các control để Lưu ảnh
+	private: System::Windows::Forms::Button^ SaveBtn;
+	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
 
 
 #pragma region Windows Form Designer generated code
@@ -73,16 +93,16 @@ namespace Task1 {
 			   this->CheckValue = (gcnew System::Windows::Forms::TrackBar());
 			   this->LoadBtn = (gcnew System::Windows::Forms::Button());
 			   this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-
-			   // (THÊM MỚI) Khai báo các control mới
 			   this->channelBox = (gcnew System::Windows::Forms::GroupBox());
-			   this->grayRadio = (gcnew System::Windows::Forms::RadioButton());
-			   this->blueRadio = (gcnew System::Windows::Forms::RadioButton());
-			   this->greenRadio = (gcnew System::Windows::Forms::RadioButton());
 			   this->redRadio = (gcnew System::Windows::Forms::RadioButton());
+			   this->greenRadio = (gcnew System::Windows::Forms::RadioButton());
+			   this->blueRadio = (gcnew System::Windows::Forms::RadioButton());
+			   this->grayRadio = (gcnew System::Windows::Forms::RadioButton());
 			   this->checkValueLabel = (gcnew System::Windows::Forms::Label());
+			   // (THÊM MỚI)
+			   this->SaveBtn = (gcnew System::Windows::Forms::Button());
+			   this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 
-			   // Tạm dừng layout
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CheckValue))->BeginInit();
 			   this->channelBox->SuspendLayout();
@@ -94,7 +114,7 @@ namespace Task1 {
 			   this->InputPic->Location = System::Drawing::Point(219, 10);
 			   this->InputPic->Margin = System::Windows::Forms::Padding(2);
 			   this->InputPic->Name = L"InputPic";
-			   this->InputPic->Size = System::Drawing::Size(380, 420); // (Sửa) Tăng chiều cao
+			   this->InputPic->Size = System::Drawing::Size(380, 420);
 			   this->InputPic->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
 			   this->InputPic->TabIndex = 0;
 			   this->InputPic->TabStop = false;
@@ -102,7 +122,7 @@ namespace Task1 {
 			   // ReverseColorCheck
 			   // 
 			   this->ReverseColorCheck->AutoSize = true;
-			   this->ReverseColorCheck->Location = System::Drawing::Point(100, 390); // (Sửa) Di chuyển xuống
+			   this->ReverseColorCheck->Location = System::Drawing::Point(100, 390);
 			   this->ReverseColorCheck->Margin = System::Windows::Forms::Padding(2);
 			   this->ReverseColorCheck->Name = L"ReverseColorCheck";
 			   this->ReverseColorCheck->Size = System::Drawing::Size(93, 17);
@@ -113,7 +133,7 @@ namespace Task1 {
 			   // 
 			   // ProgressBtn
 			   // 
-			   this->ProgressBtn->Location = System::Drawing::Point(9, 365); // (Sửa) Di chuyển xuống
+			   this->ProgressBtn->Location = System::Drawing::Point(9, 365);
 			   this->ProgressBtn->Margin = System::Windows::Forms::Padding(2);
 			   this->ProgressBtn->Name = L"ProgressBtn";
 			   this->ProgressBtn->Size = System::Drawing::Size(87, 41);
@@ -124,7 +144,7 @@ namespace Task1 {
 			   // 
 			   // ExampleBtn
 			   // 
-			   this->ExampleBtn->Location = System::Drawing::Point(101, 365); // (Sửa) Di chuyển xuống
+			   this->ExampleBtn->Location = System::Drawing::Point(101, 365);
 			   this->ExampleBtn->Margin = System::Windows::Forms::Padding(2);
 			   this->ExampleBtn->Name = L"ExampleBtn";
 			   this->ExampleBtn->Size = System::Drawing::Size(86, 19);
@@ -135,7 +155,7 @@ namespace Task1 {
 			   // 
 			   // CheckValue
 			   // 
-			   this->CheckValue->Location = System::Drawing::Point(9, 10); // (Sửa) Di chuyển lên
+			   this->CheckValue->Location = System::Drawing::Point(9, 10);
 			   this->CheckValue->Margin = System::Windows::Forms::Padding(2);
 			   this->CheckValue->Maximum = 255;
 			   this->CheckValue->Name = L"CheckValue";
@@ -146,7 +166,7 @@ namespace Task1 {
 			   // 
 			   // LoadBtn
 			   // 
-			   this->LoadBtn->Location = System::Drawing::Point(101, 335); // (Sửa) Di chuyển xuống
+			   this->LoadBtn->Location = System::Drawing::Point(101, 335);
 			   this->LoadBtn->Margin = System::Windows::Forms::Padding(2);
 			   this->LoadBtn->Name = L"LoadBtn";
 			   this->LoadBtn->Size = System::Drawing::Size(86, 26);
@@ -159,64 +179,20 @@ namespace Task1 {
 			   // 
 			   this->openFileDialog1->FileName = L"openFileImage";
 			   // 
-			   // (THÊM MỚI) checkValueLabel
-			   // 
-			   this->checkValueLabel->AutoSize = true;
-			   this->checkValueLabel->Location = System::Drawing::Point(188, 16); // (Sửa) Vị trí bên phải thanh trượt
-			   this->checkValueLabel->Name = L"checkValueLabel";
-			   this->checkValueLabel->Size = System::Drawing::Size(25, 13);
-			   this->checkValueLabel->TabIndex = 7;
-			   this->checkValueLabel->Text = L"128";
-			   // 
-			   // (THÊM MỚI) channelBox
+			   // channelBox
 			   // 
 			   this->channelBox->Controls->Add(this->redRadio);
 			   this->channelBox->Controls->Add(this->greenRadio);
 			   this->channelBox->Controls->Add(this->blueRadio);
 			   this->channelBox->Controls->Add(this->grayRadio);
-			   this->channelBox->Location = System::Drawing::Point(9, 60); // (Sửa) Vị trí mới
+			   this->channelBox->Location = System::Drawing::Point(9, 60);
 			   this->channelBox->Name = L"channelBox";
 			   this->channelBox->Size = System::Drawing::Size(200, 130);
 			   this->channelBox->TabIndex = 8;
 			   this->channelBox->TabStop = false;
 			   this->channelBox->Text = L"Processing Channel";
 			   // 
-			   // (THÊM MỚI) grayRadio
-			   // 
-			   this->grayRadio->AutoSize = true;
-			   this->grayRadio->Checked = true; // Mặc định chọn
-			   this->grayRadio->Location = System::Drawing::Point(15, 25);
-			   this->grayRadio->Name = L"grayRadio";
-			   this->grayRadio->Size = System::Drawing::Size(72, 17);
-			   this->grayRadio->TabIndex = 0;
-			   this->grayRadio->TabStop = true;
-			   this->grayRadio->Text = L"Grayscale";
-			   this->grayRadio->UseVisualStyleBackColor = true;
-			   this->grayRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
-			   // 
-			   // (THÊM MỚI) blueRadio
-			   // 
-			   this->blueRadio->AutoSize = true;
-			   this->blueRadio->Location = System::Drawing::Point(15, 48);
-			   this->blueRadio->Name = L"blueRadio";
-			   this->blueRadio->Size = System::Drawing::Size(46, 17);
-			   this->blueRadio->TabIndex = 1;
-			   this->blueRadio->Text = L"Blue";
-			   this->blueRadio->UseVisualStyleBackColor = true;
-			   this->blueRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
-			   // 
-			   // (THÊM MỚI) greenRadio
-			   // 
-			   this->greenRadio->AutoSize = true;
-			   this->greenRadio->Location = System::Drawing::Point(15, 71);
-			   this->greenRadio->Name = L"greenRadio";
-			   this->greenRadio->Size = System::Drawing::Size(54, 17);
-			   this->greenRadio->TabIndex = 2;
-			   this->greenRadio->Text = L"Green";
-			   this->greenRadio->UseVisualStyleBackColor = true;
-			   this->greenRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
-			   // 
-			   // (THÊM MỚI) redRadio
+			   // redRadio
 			   // 
 			   this->redRadio->AutoSize = true;
 			   this->redRadio->Location = System::Drawing::Point(15, 94);
@@ -227,15 +203,74 @@ namespace Task1 {
 			   this->redRadio->UseVisualStyleBackColor = true;
 			   this->redRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
 			   // 
+			   // greenRadio
+			   // 
+			   this->greenRadio->AutoSize = true;
+			   this->greenRadio->Location = System::Drawing::Point(15, 71);
+			   this->greenRadio->Name = L"greenRadio";
+			   this->greenRadio->Size = System::Drawing::Size(54, 17);
+			   this->greenRadio->TabIndex = 2;
+			   this->greenRadio->Text = L"Green";
+			   this->greenRadio->UseVisualStyleBackColor = true;
+			   this->greenRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
+			   // 
+			   // blueRadio
+			   // 
+			   this->blueRadio->AutoSize = true;
+			   this->blueRadio->Location = System::Drawing::Point(15, 48);
+			   this->blueRadio->Name = L"blueRadio";
+			   this->blueRadio->Size = System::Drawing::Size(46, 17);
+			   this->blueRadio->TabIndex = 1;
+			   this->blueRadio->Text = L"Blue";
+			   this->blueRadio->UseVisualStyleBackColor = true;
+			   this->blueRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
+			   // 
+			   // grayRadio
+			   // 
+			   this->grayRadio->AutoSize = true;
+			   this->grayRadio->Checked = true;
+			   this->grayRadio->Location = System::Drawing::Point(15, 25);
+			   this->grayRadio->Name = L"grayRadio";
+			   this->grayRadio->Size = System::Drawing::Size(72, 17);
+			   this->grayRadio->TabIndex = 0;
+			   this->grayRadio->TabStop = true;
+			   this->grayRadio->Text = L"Grayscale";
+			   this->grayRadio->UseVisualStyleBackColor = true;
+			   this->grayRadio->CheckedChanged += gcnew System::EventHandler(this, &MainUI::Radio_CheckedChanged);
+			   // 
+			   // checkValueLabel
+			   // 
+			   this->checkValueLabel->AutoSize = true;
+			   this->checkValueLabel->Location = System::Drawing::Point(188, 16);
+			   this->checkValueLabel->Name = L"checkValueLabel";
+			   this->checkValueLabel->Size = System::Drawing::Size(25, 13);
+			   this->checkValueLabel->TabIndex = 7;
+			   this->checkValueLabel->Text = L"128";
+			   // 
+			   // (THÊM MỚI) SaveBtn
+			   // 
+			   this->SaveBtn->Location = System::Drawing::Point(9, 335);
+			   this->SaveBtn->Margin = System::Windows::Forms::Padding(2);
+			   this->SaveBtn->Name = L"SaveBtn";
+			   this->SaveBtn->Size = System::Drawing::Size(87, 26);
+			   this->SaveBtn->TabIndex = 9;
+			   this->SaveBtn->Text = L"Save Image";
+			   this->SaveBtn->UseVisualStyleBackColor = true;
+			   this->SaveBtn->Click += gcnew System::EventHandler(this, &MainUI::SaveBtn_Click);
+			   // 
+			   // (THÊM MỚI) saveFileDialog1
+			   // 
+			   this->saveFileDialog1->Filter = L"PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp";
+			   this->saveFileDialog1->Title = L"Save Processed Image";
+			   // 
 			   // MainUI
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(608, 441); // (Sửa) Tăng chiều cao cửa sổ
-			   // (THÊM MỚI) Thêm các control mới vào Form
+			   this->ClientSize = System::Drawing::Size(608, 441);
+			   this->Controls->Add(this->SaveBtn); // (THÊM MỚI)
 			   this->Controls->Add(this->channelBox);
 			   this->Controls->Add(this->checkValueLabel);
-
 			   this->Controls->Add(this->LoadBtn);
 			   this->Controls->Add(this->CheckValue);
 			   this->Controls->Add(this->ExampleBtn);
@@ -245,8 +280,6 @@ namespace Task1 {
 			   this->Margin = System::Windows::Forms::Padding(2);
 			   this->Name = L"MainUI";
 			   this->Text = L"MainUI";
-
-			   // Tiếp tục layout
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->EndInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CheckValue))->EndInit();
 			   this->channelBox->ResumeLayout(false);
@@ -290,33 +323,23 @@ namespace Task1 {
 
 
 		   //=================================================================
-		   // HÀM XỬ LÝ ẢNH (VIẾT LẠI)
+		   // HÀM XỬ LÝ ẢNH (Giữ nguyên)
 		   //=================================================================
 
-				   /**
-					* @brief Xử lý ảnh đầu vào dựa trên kênh đã chọn
-					* @param inputImg Ảnh Mat đầu vào (PHẢI LÀ ẢNH MÀU CV_8UC3)
-					* @return Ảnh Mat kết quả (ảnh nhị phân CV_8UC1)
-					*/
 		   Mat ProcessImage(Mat inputImg) {
-
-			   // 1. Chuẩn bị kênh ảnh xám để xử lý
 			   Mat grayToProcess;
-
 			   if (selectedChannel == 0) { // Grayscale
 				   cvtColor(inputImg, grayToProcess, COLOR_BGR2GRAY);
 			   }
 			   else { // Kênh màu
 				   vector<Mat> channels;
 				   split(inputImg, channels);
-				   // selectedChannel: 1=B (index 0), 2=G (index 1), 3=R (index 2)
 				   grayToProcess = channels[selectedChannel - 1];
 			   }
 
-			   // 2. Xử lý ảnh (logic cũ)
 			   const int rows = grayToProcess.rows;
 			   const int cols = grayToProcess.cols;
-			   Mat newImg(rows, cols, CV_8UC1); // Ảnh đầu ra
+			   Mat newImg(rows, cols, CV_8UC1);
 
 			   if (!isReversed) {
 				   for (int y = 0; y < rows; y++) {
@@ -332,7 +355,6 @@ namespace Task1 {
 					   }
 				   }
 			   }
-
 			   return newImg;
 		   }
 
@@ -343,7 +365,6 @@ namespace Task1 {
 
 	private: System::Void CheckValue_Scroll(System::Object^ sender, System::EventArgs^ e) {
 		checkValue = CheckValue->Value;
-		// (THÊM MỚI) Cập nhật Label
 		this->checkValueLabel->Text = checkValue.ToString();
 	}
 
@@ -351,7 +372,6 @@ namespace Task1 {
 		isReversed = ReverseColorCheck->Checked;
 	}
 
-		   // (THÊM MỚI) Hàm xử lý chung cho các RadioButton
 	private: System::Void Radio_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 		if (grayRadio->Checked) {
 			selectedChannel = 0;
@@ -369,7 +389,7 @@ namespace Task1 {
 
 
 	private: System::Void ExampleBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-
+		// (SỬA) Hàm này giờ chỉ load lại ảnh example, giống như hàm khởi tạo
 		string examplePath = "horseImage.png";
 
 		// 1. Hiển thị ảnh (dùng .NET)
@@ -383,7 +403,6 @@ namespace Task1 {
 		}
 
 		// 2. Tải ảnh (dùng OpenCV)
-		// (SỬA) Tải ảnh MÀU
 		img = imread(examplePath, IMREAD_COLOR);
 
 		if (img.empty()) {
@@ -391,8 +410,8 @@ namespace Task1 {
 			return;
 		}
 
-		// (SỬA) Xóa dòng xử lý ảnh. Chỉ load.
-		// ProgressBtn_Click(sender, e);
+		// (THÊM MỚI) Xóa ảnh đã xử lý cũ vì đã load ảnh mới
+		imgProcessed.release();
 	}
 
 
@@ -408,8 +427,6 @@ namespace Task1 {
 
 			// 2. Tải ảnh vào OpenCV (dùng OpenCV)
 			string path = marshal_as<string>(ofd->FileName);
-
-			// (SỬA) Tải ảnh MÀU (IMREAD_COLOR) để có thể xử lý kênh
 			img = imread(path, IMREAD_COLOR);
 
 			if (img.empty()) {
@@ -417,7 +434,11 @@ namespace Task1 {
 			}
 			else if ((img.cols > 1920) || (img.rows > 1080)) {
 				MessageBox::Show("Image too large! (Max: 1920x1080)");
-				img.release(); // Giải phóng ảnh nếu quá lớn
+				img.release();
+			}
+			else {
+				// (THÊM MỚI) Tải ảnh thành công, xóa ảnh đã xử lý cũ
+				imgProcessed.release();
 			}
 		}
 	}
@@ -429,26 +450,49 @@ namespace Task1 {
 			return;
 		}
 
-		// (THÊM MỚI) Kiểm tra ảnh có phải là ảnh màu không nếu chọn kênh R,G,B
 		if (selectedChannel > 0 && img.channels() != 3) {
 			MessageBox::Show("Vui lòng tải ảnh màu để xử lý kênh R, G, B!");
 			return;
 		}
 
-		// 1. Xử lý ảnh
-		Mat processedMat = ProcessImage(img);
+		// 1. Xử lý ảnh và (SỬA) lưu kết quả vào biến toàn cục
+		imgProcessed = ProcessImage(img);
 
 		// 2. Chuyển kết quả sang Bitmap
-		System::Drawing::Bitmap^ outputBitmap = MatToBitmap(processedMat);
+		System::Drawing::Bitmap^ outputBitmap = MatToBitmap(imgProcessed); // Dùng imgProcessed
 
 		// 3. Hiển thị kết quả lên PictureBox
 		if (outputBitmap != nullptr) {
-			// (SỬA) Hiển thị ảnh đã xử lý
-			// Nếu bạn muốn giữ ảnh gốc, bạn cần thêm 1 PictureBox thứ 2
 			InputPic->Image = outputBitmap;
 		}
 		else {
 			MessageBox::Show("Lỗi chuyển đổi ảnh kết quả.");
+		}
+	}
+
+		   // (THÊM MỚI) HÀM SỰ KIỆN CHO NÚT LƯU
+	private: System::Void SaveBtn_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		// Yêu cầu: Phải nhấn Progress trước khi lưu
+		if (imgProcessed.empty()) {
+			MessageBox::Show("Bạn phải nhấn 'Progress' để xử lý ảnh trước khi lưu!");
+			return;
+		}
+
+		// Mở hộp thoại lưu tệp
+		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			try {
+				// Chuyển tên tệp từ .NET string sang std::string
+				string savePath = marshal_as<string>(saveFileDialog1->FileName);
+
+				// Dùng OpenCV để lưu ảnh đã xử lý
+				imwrite(savePath, imgProcessed);
+
+				MessageBox::Show("Lưu ảnh thành công!");
+			}
+			catch (Task1::Exception^ ex) {
+				MessageBox::Show("Lỗi khi lưu ảnh: " + ex->Message);
+			}
 		}
 	}
 	};
