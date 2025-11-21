@@ -1,17 +1,9 @@
 ﻿#pragma once
-#include <opencv2/opencv.hpp>
 #include <msclr/marshal_cppstd.h>
 #include <string> 
+#include "ImgProcess.h" // Include file xử lý logic
 
-using namespace cv;
 using namespace std;
-
-//=====Config Handle (Biến toàn cục)=====
-bool isReversed = false;
-int checkValue = 128;
-Mat img; // Ảnh OpenCV toàn cục (dùng để xử lý) - LUÔN LÀ ẢNH MÀU
-Mat imgProcessed; // (THÊM MỚI) Ảnh đã xử lý (dùng để lưu)
-int selectedChannel = 0; // 0: Gray, 1: Blue, 2: Green, 3: Red
 
 namespace Task1 {
 
@@ -26,42 +18,79 @@ namespace Task1 {
 
 	public ref class MainUI : public System::Windows::Forms::Form
 	{
+		// ===== KHAI BÁO BIẾN THÀNH VIÊN (Thay thế biến toàn cục) =====
+	private:
+
+		// Dùng con trỏ cho Mat vì đây là class unmanaged trong môi trường managed
+		Mat* srcImg;       // Ảnh gốc
+		Mat* processedImg; // Ảnh sau xử lý
+
+
+		bool isReversed;
+		int checkValue;
+		int selectedChannel; // 0: Gray, 1: Blue, 2: Green, 3: Red
+
 	public:
 		MainUI(void)
 		{
 			InitializeComponent();
 
-			// Đặt giá trị ban đầu cho Label
+			// Khởi tạo biến
+			srcImg = new Mat();
+			processedImg = new Mat();
+			isReversed = false;
+			checkValue = 128;
+			selectedChannel = 0;
+
+			// Đặt giá trị ban đầu cho UI
 			this->checkValueLabel->Text = this->CheckValue->Value.ToString();
+			this->CheckValue->Value = checkValue;
 
-			// (THÊM MỚI) Tự động load ảnh example khi khởi động
-			string examplePath = "horseImage.png";
-
-			// 1. Hiển thị ảnh (dùng .NET)
-			try {
-				InputPic->Image = Image::FromFile(gcnew Task1::String(examplePath.c_str()));
-				InputPic->SizeMode = PictureBoxSizeMode::Zoom;
-			}
-			catch (Task1::Exception^ ex) {
-				MessageBox::Show("Không thể tải 'horseImage.png' khi khởi động!\nLỗi: " + ex->Message);
-			}
-
-			// 2. Tải ảnh (dùng OpenCV)
-			img = imread(examplePath, IMREAD_COLOR);
-
-			if (img.empty()) {
-				MessageBox::Show("OpenCV không thể đọc 'horseImage.png' khi khởi động!");
-			}
+			// Tự động load ảnh example
+			LoadExampleImage();
 		}
 
 	protected:
 		~MainUI()
 		{
+			// Giải phóng bộ nhớ thủ công cho biến unmanaged
+			if (srcImg) delete srcImg;
+			if (processedImg) delete processedImg;
+
 			if (components)
 			{
 				delete components;
 			}
 		}
+
+		// ===== CÁC HÀM HỖ TRỢ UI RIÊNG =====
+	private:
+		void LoadExampleImage() {
+			string examplePath = "horseImage.png";
+
+			// 1. Hiển thị ảnh lên PictureBox
+			try {
+				InputPic->Image = Image::FromFile(gcnew Task1::String(examplePath.c_str()));
+				InputPic->SizeMode = PictureBoxSizeMode::Zoom;
+			}
+			catch (Task1::Exception^) {
+				// Không làm gì nếu không tìm thấy file lúc khởi động
+				// MessageBox::Show("Không tìm thấy ảnh mặc định horseImage.png");
+			}
+
+			// 2. Load vào OpenCV
+			*srcImg = imread(examplePath, IMREAD_COLOR);
+
+			if (srcImg->empty()) {
+				// Có thể log lỗi nếu cần
+			}
+			else {
+				// Reset ảnh đã xử lý cũ
+				if (!processedImg->empty()) processedImg->release();
+			}
+		}
+
+		// ===== KHAI BÁO UI CONTROLS (GIỮ NGUYÊN) =====
 	private: System::Windows::Forms::PictureBox^ InputPic;
 	private: System::Windows::Forms::CheckBox^ ReverseColorCheck;
 	private: System::Windows::Forms::Button^ ProgressBtn;
@@ -70,14 +99,12 @@ namespace Task1 {
 	private: System::Windows::Forms::Button^ LoadBtn;
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 	private: System::ComponentModel::IContainer^ components;
-
 	private: System::Windows::Forms::GroupBox^ channelBox;
 	private: System::Windows::Forms::RadioButton^ grayRadio;
 	private: System::Windows::Forms::RadioButton^ blueRadio;
 	private: System::Windows::Forms::RadioButton^ greenRadio;
 	private: System::Windows::Forms::RadioButton^ redRadio;
 	private: System::Windows::Forms::Label^ checkValueLabel;
-		   // (THÊM MỚI) Các control để Lưu ảnh
 	private: System::Windows::Forms::Button^ SaveBtn;
 	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
 
@@ -99,10 +126,8 @@ namespace Task1 {
 			   this->blueRadio = (gcnew System::Windows::Forms::RadioButton());
 			   this->grayRadio = (gcnew System::Windows::Forms::RadioButton());
 			   this->checkValueLabel = (gcnew System::Windows::Forms::Label());
-			   // (THÊM MỚI)
 			   this->SaveBtn = (gcnew System::Windows::Forms::Button());
 			   this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
-
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->InputPic))->BeginInit();
 			   (cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CheckValue))->BeginInit();
 			   this->channelBox->SuspendLayout();
@@ -247,7 +272,7 @@ namespace Task1 {
 			   this->checkValueLabel->TabIndex = 7;
 			   this->checkValueLabel->Text = L"128";
 			   // 
-			   // (THÊM MỚI) SaveBtn
+			   // SaveBtn
 			   // 
 			   this->SaveBtn->Location = System::Drawing::Point(9, 335);
 			   this->SaveBtn->Margin = System::Windows::Forms::Padding(2);
@@ -258,7 +283,7 @@ namespace Task1 {
 			   this->SaveBtn->UseVisualStyleBackColor = true;
 			   this->SaveBtn->Click += gcnew System::EventHandler(this, &MainUI::SaveBtn_Click);
 			   // 
-			   // (THÊM MỚI) saveFileDialog1
+			   // saveFileDialog1
 			   // 
 			   this->saveFileDialog1->Filter = L"PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp";
 			   this->saveFileDialog1->Title = L"Save Processed Image";
@@ -268,7 +293,7 @@ namespace Task1 {
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->ClientSize = System::Drawing::Size(608, 441);
-			   this->Controls->Add(this->SaveBtn); // (THÊM MỚI)
+			   this->Controls->Add(this->SaveBtn);
 			   this->Controls->Add(this->channelBox);
 			   this->Controls->Add(this->checkValueLabel);
 			   this->Controls->Add(this->LoadBtn);
@@ -291,76 +316,7 @@ namespace Task1 {
 #pragma endregion
 
 		   //=================================================================
-		   // HÀM HỖ TRỢ (Giữ nguyên)
-		   //=================================================================
-
-		   System::Drawing::Bitmap^ MatToBitmap(const Mat& mat) {
-			   if (mat.empty() || mat.type() != CV_8UC1) {
-				   return nullptr;
-			   }
-			   int width = mat.cols;
-			   int height = mat.rows;
-			   System::Drawing::Bitmap^ bmp = gcnew System::Drawing::Bitmap(
-				   width, height, PixelFormat::Format8bppIndexed
-			   );
-			   ColorPalette^ palette = bmp->Palette;
-			   for (int i = 0; i < 256; i++) {
-				   palette->Entries[i] = System::Drawing::Color::FromArgb(i, i, i);
-			   }
-			   bmp->Palette = palette;
-			   System::Drawing::Rectangle rect(0, 0, width, height);
-			   BitmapData^ bmpData = bmp->LockBits(
-				   rect, ImageLockMode::WriteOnly, bmp->PixelFormat
-			   );
-			   uchar* bmpPtr = (uchar*)bmpData->Scan0.ToPointer();
-			   int stride = bmpData->Stride;
-			   for (int y = 0; y < height; y++) {
-				   memcpy(bmpPtr + y * stride, mat.data + y * mat.step, width);
-			   }
-			   bmp->UnlockBits(bmpData);
-			   return bmp;
-		   }
-
-
-		   //=================================================================
-		   // HÀM XỬ LÝ ẢNH (Giữ nguyên)
-		   //=================================================================
-
-		   Mat ProcessImage(Mat inputImg) {
-			   Mat grayToProcess;
-			   if (selectedChannel == 0) { // Grayscale
-				   cvtColor(inputImg, grayToProcess, COLOR_BGR2GRAY);
-			   }
-			   else { // Kênh màu
-				   vector<Mat> channels;
-				   split(inputImg, channels);
-				   grayToProcess = channels[selectedChannel - 1];
-			   }
-
-			   const int rows = grayToProcess.rows;
-			   const int cols = grayToProcess.cols;
-			   Mat newImg(rows, cols, CV_8UC1);
-
-			   if (!isReversed) {
-				   for (int y = 0; y < rows; y++) {
-					   for (int x = 0; x < cols; x++) {
-						   newImg.at<uchar>(y, x) = (grayToProcess.at<uchar>(y, x) >= checkValue) ? 255 : 0;
-					   }
-				   }
-			   }
-			   else {
-				   for (int y = 0; y < rows; y++) {
-					   for (int x = 0; x < cols; x++) {
-						   newImg.at<uchar>(y, x) = (grayToProcess.at<uchar>(y, x) >= checkValue) ? 0 : 255;
-					   }
-				   }
-			   }
-			   return newImg;
-		   }
-
-
-		   //=================================================================
-		   // CÁC HÀM SỰ KIỆN (ĐÃ SỬA VÀ THÊM MỚI)
+		   // EVENT HANDLERS (ĐÃ ĐƯỢC VIẾT LẠI ĐỂ GỌI IMAGEPROCESSOR)
 		   //=================================================================
 
 	private: System::Void CheckValue_Scroll(System::Object^ sender, System::EventArgs^ e) {
@@ -373,121 +329,81 @@ namespace Task1 {
 	}
 
 	private: System::Void Radio_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (grayRadio->Checked) {
-			selectedChannel = 0;
-		}
-		else if (blueRadio->Checked) {
-			selectedChannel = 1;
-		}
-		else if (greenRadio->Checked) {
-			selectedChannel = 2;
-		}
-		else if (redRadio->Checked) {
-			selectedChannel = 3;
-		}
+		if (grayRadio->Checked) selectedChannel = 0;
+		else if (blueRadio->Checked) selectedChannel = 1;
+		else if (greenRadio->Checked) selectedChannel = 2;
+		else if (redRadio->Checked) selectedChannel = 3;
 	}
-
 
 	private: System::Void ExampleBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-		// (SỬA) Hàm này giờ chỉ load lại ảnh example, giống như hàm khởi tạo
-		string examplePath = "horseImage.png";
-
-		// 1. Hiển thị ảnh (dùng .NET)
-		try {
-			InputPic->Image = Image::FromFile(gcnew Task1::String(examplePath.c_str()));
-			InputPic->SizeMode = PictureBoxSizeMode::Zoom;
-		}
-		catch (Task1::Exception^ ex) {
-			MessageBox::Show("Không thể tải 'horseImage.png'!");
-			return;
-		}
-
-		// 2. Tải ảnh (dùng OpenCV)
-		img = imread(examplePath, IMREAD_COLOR);
-
-		if (img.empty()) {
-			MessageBox::Show("OpenCV không thể đọc 'horseImage.png'!");
-			return;
-		}
-
-		// (THÊM MỚI) Xóa ảnh đã xử lý cũ vì đã load ảnh mới
-		imgProcessed.release();
+		LoadExampleImage();
 	}
-
-
 
 	private: System::Void LoadBtn_Click(System::Object^ sender, System::EventArgs^ e) {
 		OpenFileDialog^ ofd = gcnew OpenFileDialog();
 		ofd->Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
 
 		if (ofd->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-			// 1. Hiển thị ảnh trong PictureBox (dùng .NET)
+			// 1. UI
 			InputPic->Image = Image::FromFile(ofd->FileName);
 			InputPic->SizeMode = PictureBoxSizeMode::Zoom;
 
-			// 2. Tải ảnh vào OpenCV (dùng OpenCV)
+			// 2. Logic: Cập nhật ảnh gốc vào biến thành viên
 			string path = marshal_as<string>(ofd->FileName);
-			img = imread(path, IMREAD_COLOR);
+			*srcImg = imread(path, IMREAD_COLOR);
 
-			if (img.empty()) {
+			if (srcImg->empty()) {
 				MessageBox::Show("Can't Read!");
 			}
-			else if ((img.cols > 1920) || (img.rows > 1080)) {
+			else if ((srcImg->cols > 1920) || (srcImg->rows > 1080)) {
 				MessageBox::Show("Image too large! (Max: 1920x1080)");
-				img.release();
+				srcImg->release();
 			}
 			else {
-				// (THÊM MỚI) Tải ảnh thành công, xóa ảnh đã xử lý cũ
-				imgProcessed.release();
+				// Reset ảnh cũ
+				processedImg->release();
 			}
 		}
 	}
 
-
 	private: System::Void ProgressBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (img.empty()) {
+		if (srcImg->empty()) {
 			MessageBox::Show("Image not loaded!");
 			return;
 		}
 
-		if (selectedChannel > 0 && img.channels() != 3) {
+		// Check logic
+		if (selectedChannel > 0 && srcImg->channels() != 3) {
 			MessageBox::Show("Vui lòng tải ảnh màu để xử lý kênh R, G, B!");
 			return;
 		}
 
-		// 1. Xử lý ảnh và (SỬA) lưu kết quả vào biến toàn cục
-		imgProcessed = ProcessImage(img);
+		// 1. GỌI HÀM XỬ LÝ TỪ FILE KHÁC (ImageCore.h)
+		// Truyền các tham số cấu hình (threshold, reverse, channel) vào hàm tĩnh
+		*processedImg = ImageProcessor::ProcessImageLogic(*srcImg, checkValue, isReversed, selectedChannel);
 
-		// 2. Chuyển kết quả sang Bitmap
-		System::Drawing::Bitmap^ outputBitmap = MatToBitmap(imgProcessed); // Dùng imgProcessed
+		// 2. GỌI HÀM CHUYỂN ĐỔI TỪ FILE KHÁC
+		System::Drawing::Bitmap^ outputBitmap = ImageProcessor::MatToBitmap(*processedImg);
 
-		// 3. Hiển thị kết quả lên PictureBox
+		// 3. Hiển thị kết quả
 		if (outputBitmap != nullptr) {
 			InputPic->Image = outputBitmap;
 		}
 		else {
-			MessageBox::Show("Lỗi chuyển đổi ảnh kết quả.");
+			MessageBox::Show("Lỗi xử lý hoặc chuyển đổi ảnh.");
 		}
 	}
 
-		   // (THÊM MỚI) HÀM SỰ KIỆN CHO NÚT LƯU
 	private: System::Void SaveBtn_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		// Yêu cầu: Phải nhấn Progress trước khi lưu
-		if (imgProcessed.empty()) {
+		if (processedImg->empty()) {
 			MessageBox::Show("Bạn phải nhấn 'Progress' để xử lý ảnh trước khi lưu!");
 			return;
 		}
 
-		// Mở hộp thoại lưu tệp
 		if (saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 			try {
-				// Chuyển tên tệp từ .NET string sang std::string
 				string savePath = marshal_as<string>(saveFileDialog1->FileName);
-
-				// Dùng OpenCV để lưu ảnh đã xử lý
-				imwrite(savePath, imgProcessed);
-
+				imwrite(savePath, *processedImg);
 				MessageBox::Show("Lưu ảnh thành công!");
 			}
 			catch (Task1::Exception^ ex) {

@@ -1,3 +1,0 @@
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\Task1\x64\Debug\Task1.vcxproj.AssemblyReference.cache
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\Task1\x64\Debug\Task1.MainUI.resources
-D:\Storage\Dev\Cpp\DTCM_NLLT_251_19_09_2025\Task1\Task1\x64\Debug\Task1.vcxproj.GenerateResource.cache
